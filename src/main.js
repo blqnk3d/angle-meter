@@ -91,8 +91,8 @@ function updateStability(isStable) {
   }
 }
 
-function onSensorData({ beta, gamma, accelPitch, accelRoll }) {
-  const angles = calculator.update(beta, gamma, accelPitch, accelRoll);
+function onSensorData({ beta, gamma }) {
+  const angles = calculator.update(beta, gamma);
   ui.draw(angles.pitch, angles.roll);
   updateReadouts(angles);
   updateStability(angles.isStable);

@@ -21,12 +21,9 @@ export class AngleCalculator {
     this.smoothing = 0.35;
   }
 
-  update(beta, gamma, accelPitch, accelRoll) {
-    const fusedPitch = (beta + accelPitch) / 2;
-    const fusedRoll = (gamma + accelRoll) / 2;
-
-    const rawPitch = fusedPitch - this.offsetPitch;
-    const rawRoll = fusedRoll - this.offsetRoll;
+  update(beta, gamma) {
+    const rawPitch = beta - this.offsetPitch;
+    const rawRoll = gamma - this.offsetRoll;
 
     this.pitchBuffer[this.bufferIndex] = rawPitch;
     this.rollBuffer[this.bufferIndex] = rawRoll;
@@ -66,13 +63,8 @@ export class AngleCalculator {
 
     this.isStable = this.consecutiveStable >= STABLE_CONFIRM_COUNT;
 
-    if (this.isStable) {
-      this.displayPitch = meanPitch;
-      this.displayRoll = meanRoll;
-    } else {
-      this.displayPitch = meanPitch;
-      this.displayRoll = meanRoll;
-    }
+    this.displayPitch = meanPitch;
+    this.displayRoll = meanRoll;
 
     return {
       pitch: this.displayPitch,
