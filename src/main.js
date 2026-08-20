@@ -1,3 +1,4 @@
+import "./style.css";
 import { SensorManager } from "./sensor.js";
 import { AngleCalculator } from "./angle-calc.js";
 import { InclinometerUI } from "./ui.js";

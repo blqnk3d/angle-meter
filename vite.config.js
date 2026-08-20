@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.svg"],
+      includeAssets: ["favicon.svg", "icon-192.png", "icon-512.png"],
       manifest: {
         name: "Angle Meter",
         short_name: "Angle Meter",
@@ -20,7 +20,17 @@ export default defineConfig({
         orientation: "portrait",
         icons: [
           {
-            src: "/favicon.svg",
+            src: "/angle-meter/icon-192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/angle-meter/icon-512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "/angle-meter/favicon.svg",
             sizes: "any",
             type: "image/svg+xml",
           },
