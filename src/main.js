@@ -122,7 +122,6 @@ async function startMeter() {
 function stopMeter() {
   sensor.stop();
   calculator.reset();
-  showScreen("start-screen");
 
   try {
     if (document.fullscreenElement) {
@@ -131,6 +130,8 @@ function stopMeter() {
       document.webkitExitFullscreen();
     }
   } catch {}
+
+  window.close();
 }
 
 function init() {
