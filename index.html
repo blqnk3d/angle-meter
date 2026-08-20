@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="theme-color" content="#1A1A1A" />
   <title>Angle Meter</title>
   <link rel="icon" href="/favicon.svg" />
 </head>
@@ -47,8 +47,9 @@
       <div class="meter-header">
         <span class="meter-title">Angle Meter</span>
         <button id="settings-btn" class="icon-btn" aria-label="Settings">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+            <circle cx="12" cy="12" r="3"/>
           </svg>
         </button>
       </div>
@@ -99,8 +100,8 @@
               <circle cx="24" cy="24" r="3" fill="currentColor"/>
             </svg>
           </div>
-          <h2>Calibrate</h2>
-          <p>Place your phone flat on the surface you want to measure as the reference level, then tap calibrate.</p>
+          <h2>Set Reference Level</h2>
+          <p>Place your phone flat on the surface, then tap "Set as Level" to define it as your zero reference.</p>
           <div class="calibrate-actions">
             <button id="calibrate-confirm" class="btn-primary">Set as Level</button>
             <button id="calibrate-cancel" class="btn-secondary btn-outline">Cancel</button>
@@ -121,8 +122,8 @@
           <div class="settings-body">
             <label class="setting-row">
               <span>Smoothing</span>
-              <input type="range" id="smoothing-range" min="0" max="95" value="85" />
-              <span class="setting-value" id="smoothing-value">85%</span>
+              <input type="range" id="smoothing-range" min="0" max="95" value="35" />
+              <span class="setting-value" id="smoothing-value">35%</span>
             </label>
             <label class="setting-row">
               <span>Show decimals</span>

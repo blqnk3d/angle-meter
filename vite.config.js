@@ -14,8 +14,8 @@ export default defineConfig({
         name: "Angle Meter",
         short_name: "Angle Meter",
         description: "Measure surface inclination using your phone's motion sensors",
-        theme_color: "#0a0a0f",
-        background_color: "#0a0a0f",
+        theme_color: "#1A1A1A",
+        background_color: "#1A1A1A",
         display: "fullscreen",
         orientation: "portrait",
         icons: [

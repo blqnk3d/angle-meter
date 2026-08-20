@@ -1,4 +1,4 @@
-const SMOOTHING_DEFAULT = 0.85;
+const SMOOTHING_DEFAULT = 0.35;
 
 export class AngleCalculator {
   constructor() {

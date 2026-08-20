@@ -64,14 +64,19 @@ function updateReadouts({ pitch, roll, inclination }) {
 
   if (inclination < 0.5) {
     labelEl.textContent = "Level";
+    incEl.classList.add("is-level");
   } else if (inclination < 2) {
     labelEl.textContent = "Nearly level";
+    incEl.classList.remove("is-level");
   } else if (inclination < 10) {
     labelEl.textContent = "Slight incline";
+    incEl.classList.remove("is-level");
   } else if (inclination < 30) {
     labelEl.textContent = "Moderate incline";
+    incEl.classList.remove("is-level");
   } else {
     labelEl.textContent = "Steep incline";
+    incEl.classList.remove("is-level");
   }
 }
 

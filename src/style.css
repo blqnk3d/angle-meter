@@ -1,15 +1,16 @@
 :root {
-  --bg: #0a0a0f;
-  --surface: #141420;
-  --surface-2: #1c1c2e;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #e8e8f0;
-  --text-dim: rgba(255, 255, 255, 0.45);
-  --accent: #3ee8b5;
-  --accent-dim: rgba(62, 232, 181, 0.15);
-  --danger: #e85a5a;
-  --radius: 14px;
-  --radius-sm: 10px;
+  --bg: #1A1A1A;
+  --surface: #2E2E2E;
+  --surface-2: #383838;
+  --border: #4A4A4A;
+  --text: #F2F1EC;
+  --text-dim: #8C8C86;
+  --accent: #FF6B35;
+  --accent-dim: rgba(255, 107, 53, 0.15);
+  --level: #4CAF50;
+  --radius: 18px;
+  --radius-sm: 14px;
+  --mono: "IBM Plex Mono", "JetBrains Mono", "SF Mono", "Cascadia Code", ui-monospace, monospace;
 }
 
 *,
@@ -25,7 +26,7 @@ html, body {
   overflow: hidden;
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  font-family: var(--mono);
   -webkit-font-smoothing: antialiased;
   touch-action: none;
   user-select: none;
@@ -62,28 +63,26 @@ html, body {
   height: 80px;
   margin: 0 auto 24px;
   color: var(--accent);
-  opacity: 0.9;
 }
 
 .start-content h1 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
   letter-spacing: -0.5px;
   margin-bottom: 10px;
 }
 
 .start-subtitle {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-dim);
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 32px;
 }
 
 .start-hint {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-dim);
   margin-top: 16px;
-  opacity: 0.7;
 }
 
 .btn-primary {
@@ -93,11 +92,12 @@ html, body {
   gap: 8px;
   padding: 14px 36px;
   background: var(--accent);
-  color: #0a0a0f;
+  color: var(--bg);
   border: none;
   border-radius: 50px;
-  font-size: 16px;
-  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   transition: transform 0.15s, opacity 0.15s;
   -webkit-tap-highlight-color: transparent;
@@ -126,10 +126,11 @@ html, body {
 }
 
 .meter-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-dim);
-  letter-spacing: 0.3px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .icon-btn {
@@ -179,28 +180,32 @@ html, body {
 }
 
 .angle-value {
+  font-family: var(--mono);
   font-size: 64px;
-  font-weight: 200;
+  font-weight: 700;
   letter-spacing: -2px;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-  background: linear-gradient(135deg, var(--accent), #6ef0d0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
+  transition: color 0.3s;
+}
+
+.angle-value.is-level {
+  color: var(--level);
 }
 
 .angle-unit {
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 11px;
   color: var(--text-dim);
-  margin-top: 4px;
+  margin-top: 6px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-weight: 500;
 }
 
 .angle-label {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-dim);
   margin-top: 8px;
 }
@@ -223,15 +228,16 @@ html, body {
 }
 
 .axis-label {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .axis-value {
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -260,7 +266,8 @@ html, body {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text);
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
@@ -279,7 +286,7 @@ html, body {
 
 .btn-outline {
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.06);
+  border-color: var(--border);
 }
 
 /* Overlays */
@@ -322,8 +329,8 @@ html, body {
 
 .calibrate-card h2,
 .settings-card h2 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
@@ -335,7 +342,7 @@ html, body {
 }
 
 .calibrate-card p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-dim);
   line-height: 1.6;
   margin-bottom: 24px;
@@ -348,7 +355,7 @@ html, body {
 
 .calibrate-actions .btn-primary {
   flex: 1;
-  font-size: 14px;
+  font-size: 13px;
   padding: 12px 20px;
 }
 
@@ -374,7 +381,7 @@ html, body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-dim);
   cursor: default;
 }
@@ -384,6 +391,7 @@ html, body {
 }
 
 .setting-value {
+  font-family: var(--mono);
   font-variant-numeric: tabular-nums;
   min-width: 40px;
   text-align: right;
