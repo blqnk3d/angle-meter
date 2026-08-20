@@ -1,9 +1,20 @@
+function detectBrowser() {
+  const ua = navigator.userAgent;
+  if (ua.includes("Brave")) return "brave";
+  if (ua.includes("Firefox")) return "firefox";
+  if (ua.includes("Edg")) return "edge";
+  if (ua.includes("Chrome")) return "chrome";
+  if (ua.includes("Safari") && !ua.includes("Chrome")) return "safari";
+  return "other";
+}
+
 export class SensorManager {
   constructor() {
     this.supported = false;
     this.listening = false;
     this._callback = null;
     this._handler = null;
+    this.browser = detectBrowser();
   }
 
   async requestPermission() {
@@ -14,15 +25,18 @@ export class SensorManager {
       try {
         const permission = await DeviceOrientationEvent.requestPermission();
         if (permission !== "granted") {
-          return false;
+          return { ok: false, reason: "permission-denied" };
         }
       } catch {
-        return false;
+        return { ok: false, reason: "permission-denied" };
       }
     }
 
     this.supported = await this._testSupport();
-    return this.supported;
+    if (!this.supported) {
+      return { ok: false, reason: this.browser === "brave" ? "brave-blocked" : "no-sensor" };
+    }
+    return { ok: true };
   }
 
   start(callback) {

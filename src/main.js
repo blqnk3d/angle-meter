@@ -22,6 +22,28 @@ function showScreen(id) {
   }
 }
 
+function showUnsupported(reason) {
+  const title = $("unsupported-title");
+  const msg = $("unsupported-msg");
+  const hint = $("unsupported-hint");
+
+  if (reason === "brave-blocked") {
+    title.textContent = "Brave Shields Blocking Sensors";
+    msg.textContent = "Brave blocks motion sensors by default. You need to allow them for this site.";
+    hint.textContent = "Tap the Shields icon (lion) in the address bar, scroll to \"Motion sensors\", and enable it. Then tap Try Again.";
+  } else if (reason === "permission-denied") {
+    title.textContent = "Permission Denied";
+    msg.textContent = "Sensor permission was denied. Please allow motion & orientation access and try again.";
+    hint.textContent = "Check your browser settings or try in an incognito window.";
+  } else {
+    title.textContent = "Not Supported";
+    msg.textContent = "Your device or browser does not support motion sensors.";
+    hint.textContent = "Please try on a mobile device with iOS Safari, Android Chrome, or Edge.";
+  }
+
+  showScreen("unsupported-screen");
+}
+
 function updateReadouts({ pitch, roll, inclination }) {
   const incEl = $("angle-value");
   const labelEl = $("angle-label");
@@ -78,12 +100,16 @@ function init() {
   ui = new InclinometerUI(canvas);
 
   $("start-btn").addEventListener("click", async () => {
-    const granted = await sensor.requestPermission();
-    if (granted) {
+    const result = await sensor.requestPermission();
+    if (result.ok) {
       startMeter();
     } else {
-      showScreen("unsupported-screen");
+      showUnsupported(result.reason);
     }
+  });
+
+  $("unsupported-retry").addEventListener("click", async () => {
+    showScreen("start-screen");
   });
 
   $("calibrate-btn").addEventListener("click", () => {
@@ -95,18 +121,12 @@ function init() {
   });
 
   $("calibrate-confirm").addEventListener("click", () => {
-    const current = calculator.smoothBeta !== 0 || calculator.smoothGamma !== 0
-      ? { beta: calculator.smoothBeta + calculator.offsetBeta, gamma: calculator.smoothGamma + calculator.offsetGamma }
-      : { beta: 0, gamma: 0 };
-
-    sensor.stop();
-    sensor.start((data) => {
-      calculator.calibrate(data.beta, data.gamma);
-      $("calibration-status").textContent = "Set";
-      $("calibration-overlay").classList.add("hidden");
-      sensor.stop();
-      sensor.start(onSensorData);
-    });
+    calculator.calibrate(
+      calculator.smoothBeta + calculator.offsetBeta,
+      calculator.smoothGamma + calculator.offsetGamma
+    );
+    $("calibration-status").textContent = "Set";
+    $("calibrate-overlay").classList.add("hidden");
   });
 
   $("reset-btn").addEventListener("click", () => {

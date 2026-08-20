@@ -10,7 +10,7 @@
   <link rel="icon" href="/angle-meter/favicon.svg" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  <script type="module" crossorigin src="/angle-meter/assets/index-HpI4amaf.js"></script>
+  <script type="module" crossorigin src="/angle-meter/assets/index-BnFiyg8o.js"></script>
   <link rel="stylesheet" crossorigin href="/angle-meter/assets/index-C6vnRvEq.css">
 <link rel="manifest" href="/angle-meter/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/angle-meter/registerSW.js"></script></head>
 <body>
@@ -40,9 +40,10 @@
             <line x1="28" y1="28" x2="52" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
           </svg>
         </div>
-        <h1>Not Supported</h1>
-        <p class="start-subtitle">Your device or browser does not support motion sensors.</p>
-        <p class="start-hint">Please try on a mobile device with iOS Safari or Android Chrome.</p>
+        <h1 id="unsupported-title">Not Supported</h1>
+        <p class="start-subtitle" id="unsupported-msg">Your device or browser does not support motion sensors.</p>
+        <p class="start-hint" id="unsupported-hint">Please try on a mobile device with iOS Safari or Android Chrome.</p>
+        <button id="unsupported-retry" class="btn-primary" style="margin-top: 24px;">Try Again</button>
       </div>
     </div>
 
