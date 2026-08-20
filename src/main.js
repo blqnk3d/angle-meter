@@ -104,15 +104,6 @@ async function startMeter() {
   sensor.start(onSensorData);
 
   try {
-    const el = document.documentElement;
-    if (el.requestFullscreen) {
-      await el.requestFullscreen();
-    } else if (el.webkitRequestFullscreen) {
-      await el.webkitRequestFullscreen();
-    }
-  } catch {}
-
-  try {
     if (screen.orientation && screen.orientation.lock) {
       await screen.orientation.lock("portrait");
     }
@@ -124,10 +115,8 @@ function stopMeter() {
   calculator.reset();
 
   try {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    } else if (document.webkitFullscreenElement) {
-      document.webkitExitFullscreen();
+    if (screen.orientation && screen.orientation.unlock) {
+      screen.orientation.unlock();
     }
   } catch {}
 

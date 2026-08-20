@@ -11,12 +11,12 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "icon-192.png", "icon-512.png"],
       manifest: {
-        name: "Angle Meter",
-        short_name: "Angle Meter",
-        description: "Measure surface inclination using your phone's motion sensors",
+        name: "Neigungsmesser",
+        short_name: "Neigungsmesser",
+        description: "Messe die Neigung einer Oberfläche mit den Sensoren deines Telefons",
         theme_color: "#1A1A1A",
         background_color: "#1A1A1A",
-        display: "fullscreen",
+        display: "standalone",
         orientation: "portrait",
         icons: [
           {
