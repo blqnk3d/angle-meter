@@ -230,6 +230,10 @@ function init() {
     showScreen("unsupported-screen");
   }
 
+  if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone) {
+    $("start-install-btn").classList.add("hidden");
+  }
+
   const overlayClickHandler = (e) => {
     if (e.target.classList.contains("overlay-backdrop")) {
       e.target.classList.add("hidden");
