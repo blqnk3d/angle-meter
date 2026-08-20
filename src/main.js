@@ -121,6 +121,7 @@ async function startMeter() {
 
 function stopMeter() {
   sensor.stop();
+  calculator.reset();
   showScreen("start-screen");
 
   try {
