@@ -80,10 +80,25 @@ function onSensorData({ beta, gamma }) {
   updateReadouts(angles);
 }
 
-function startMeter() {
+async function startMeter() {
   showScreen("meter-screen");
   ui.resize();
   sensor.start(onSensorData);
+
+  try {
+    const el = document.documentElement;
+    if (el.requestFullscreen) {
+      await el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      await el.webkitRequestFullscreen();
+    }
+  } catch {}
+
+  try {
+    if (screen.orientation && screen.orientation.lock) {
+      await screen.orientation.lock("portrait");
+    }
+  } catch {}
 }
 
 function init() {

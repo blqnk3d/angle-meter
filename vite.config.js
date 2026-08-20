@@ -16,8 +16,8 @@ export default defineConfig({
         description: "Measure surface inclination using your phone's motion sensors",
         theme_color: "#0a0a0f",
         background_color: "#0a0a0f",
-        display: "standalone",
-        orientation: "any",
+        display: "fullscreen",
+        orientation: "portrait",
         icons: [
           {
             src: "/favicon.svg",
