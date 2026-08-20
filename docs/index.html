@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#1A1A1A" />
   <title>Neigungsmesser</title>
   <link rel="icon" href="/angle-meter/favicon.svg" />
-  <script type="module" crossorigin src="/angle-meter/assets/index-B5L1FB8a.js"></script>
-  <link rel="stylesheet" crossorigin href="/angle-meter/assets/index-DZ-N2L4U.css">
+  <script type="module" crossorigin src="/angle-meter/assets/index-htu0G4Kn.js"></script>
+  <link rel="stylesheet" crossorigin href="/angle-meter/assets/index-BYZrUlvW.css">
 <link rel="manifest" href="/angle-meter/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/angle-meter/registerSW.js"></script></head>
 <body>
   <div id="app">
@@ -27,6 +27,29 @@
         <p class="start-subtitle">Messe die Neigung einer Oberfläche mit den Bewegungssensoren deines Telefons</p>
         <button id="start-btn" class="btn-primary">Sensoren aktivieren</button>
         <p class="start-hint">Dein Telefon wird um Zugriff auf die Sensoren fragen</p>
+        <button id="start-install-btn" class="btn-install">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 15V3M12 15l-4-4M12 15l4-4M4 20h16"/>
+          </svg>
+          App installieren
+        </button>
+      </div>
+    </div>
+
+    <div id="install-overlay" class="hidden">
+      <div class="calibrate-card">
+        <div class="calibrate-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="14" y="6" width="20" height="36" rx="4"/>
+            <line x1="14" y1="36" x2="34" y2="36"/>
+            <circle cx="24" cy="40" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <h2 id="install-title">App installieren</h2>
+        <p id="install-steps"></p>
+        <div class="calibrate-actions">
+          <button id="install-overlay-close" class="btn-primary">Verstanden</button>
+        </div>
       </div>
     </div>
 

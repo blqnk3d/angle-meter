@@ -108,6 +108,35 @@ html, body {
   opacity: 0.85;
 }
 
+.btn-install {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 12px;
+}
+
+.btn-install svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-install:active {
+  background: var(--surface);
+  color: var(--text);
+}
+
 /* Meter screen */
 #meter-screen {
   display: flex;

@@ -193,6 +193,34 @@ function init() {
     }
   });
 
+  $("install-overlay-close").addEventListener("click", () => {
+    $("install-overlay").classList.add("hidden");
+  });
+
+  $("start-install-btn").addEventListener("click", async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      const { outcome } = await installPrompt.userChoice;
+      if (outcome === "accepted") {
+        installPrompt = null;
+      }
+    } else {
+      const ua = navigator.userAgent;
+      const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const titleEl = $("install-title");
+      const stepsEl = $("install-steps");
+
+      if (isIOS) {
+        titleEl.textContent = "App installieren";
+        stepsEl.innerHTML = "1. Tippe auf das <strong>Teilen-Symbol</strong> (Quadrat mit Pfeil) unten in der Adressleiste.<br><br>2. Waehle <strong>'Zum Home-Bildschirm'</strong>.<br><br>3. Tippe oben rechts auf <strong>'Hinzufuegen'</strong>.";
+      } else {
+        titleEl.textContent = "App installieren";
+        stepsEl.innerHTML = "1. Tippe auf die <strong>drei Punkte</strong> oben rechts in der Adressleiste.<br><br>2. Waehle <strong>'App installieren'</strong> oder <strong>'Zum Startbildschirm hinzufuegen'</strong>.<br><br>3. Bestaetige mit <strong>'Installieren'</strong>.";
+      }
+      $("install-overlay").classList.remove("hidden");
+    }
+  });
+
   if (typeof DeviceOrientationEvent !== "undefined" &&
       typeof DeviceOrientationEvent.requestPermission === "function") {
     showScreen("start-screen");
