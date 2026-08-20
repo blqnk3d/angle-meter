@@ -3,6 +3,9 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   base: "/angle-meter/",
+  build: {
+    outDir: "docs",
+  },
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
