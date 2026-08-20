@@ -29,17 +29,17 @@ function showUnsupported(reason) {
   const hint = $("unsupported-hint");
 
   if (reason === "brave-blocked") {
-    title.textContent = "Brave Shields Blocking Sensors";
-    msg.textContent = "Brave blocks motion sensors by default. You need to allow them for this site.";
-    hint.textContent = "Tap the Shields icon (lion) in the address bar, scroll to \"Motion sensors\", and enable it. Then tap Try Again.";
+    title.textContent = "Brave Shields blockiert Sensoren";
+    msg.textContent = "Brave blockiert standardmäßig Bewegungssensoren. Du musst sie für diese Seite erlauben.";
+    hint.textContent = "Tippe auf das Schild-Symbol (Loewe) in der Adressleiste, scrolled zu 'Bewegungssensoren' und aktiviere es. Tippe dann auf 'Erneut versuchen'.";;
   } else if (reason === "permission-denied") {
-    title.textContent = "Permission Denied";
-    msg.textContent = "Sensor permission was denied. Please allow motion & orientation access and try again.";
-    hint.textContent = "Check your browser settings or try in an incognito window.";
+    title.textContent = "Berechtigung verweigert";
+    msg.textContent = "Die Sensorberechtigung wurde verweigert. Bitte erlaube den Zugriff auf Bewegungs- und Orientierungssensoren.";
+    hint.textContent = "Überprüfe deine Browsereinstellungen oder versuche es in einem Inkognito-Fenster.";
   } else {
-    title.textContent = "Not Supported";
-    msg.textContent = "Your device or browser does not support motion sensors.";
-    hint.textContent = "Please try on a mobile device with iOS Safari, Android Chrome, or Edge.";
+    title.textContent = "Nicht unterstützt";
+    msg.textContent = "Dein Gerät oder Browser unterstützt keine Bewegungssensoren.";
+    hint.textContent = "Bitte verwende ein Mobilgerät mit iOS Safari, Android Chrome oder Edge.";
   }
 
   showScreen("unsupported-screen");
@@ -63,19 +63,19 @@ function updateReadouts({ pitch, roll, inclination }) {
   rollEl.textContent = `${sign(roll)}${fmt(roll)}\u00b0`;
 
   if (inclination < 0.5) {
-    labelEl.textContent = "Level";
+    labelEl.textContent = "Waagerecht";
     incEl.classList.add("is-level");
   } else if (inclination < 2) {
-    labelEl.textContent = "Nearly level";
+    labelEl.textContent = "Fast waagerecht";
     incEl.classList.remove("is-level");
   } else if (inclination < 10) {
-    labelEl.textContent = "Slight incline";
+    labelEl.textContent = "Leichte Neigung";
     incEl.classList.remove("is-level");
   } else if (inclination < 30) {
-    labelEl.textContent = "Moderate incline";
+    labelEl.textContent = "Mittlere Neigung";
     incEl.classList.remove("is-level");
   } else {
-    labelEl.textContent = "Steep incline";
+    labelEl.textContent = "Steile Neigung";
     incEl.classList.remove("is-level");
   }
 }
@@ -103,6 +103,19 @@ async function startMeter() {
   try {
     if (screen.orientation && screen.orientation.lock) {
       await screen.orientation.lock("portrait");
+    }
+  } catch {}
+}
+
+function stopMeter() {
+  sensor.stop();
+  showScreen("start-screen");
+
+  try {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else if (document.webkitFullscreenElement) {
+      document.webkitExitFullscreen();
     }
   } catch {}
 }
@@ -140,13 +153,12 @@ function init() {
       calculator.smoothBeta + calculator.offsetBeta,
       calculator.smoothGamma + calculator.offsetGamma
     );
-    $("calibration-status").textContent = "Set";
+    $("calibration-status").textContent = "Gesetzt";
     $("calibrate-overlay").classList.add("hidden");
   });
 
   $("reset-btn").addEventListener("click", () => {
-    calculator.reset();
-    $("calibration-status").textContent = "None";
+    stopMeter();
   });
 
   $("settings-btn").addEventListener("click", () => {

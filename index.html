@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1A1A1A" />
-  <title>Angle Meter</title>
+  <title>Neigungsmesser</title>
   <link rel="icon" href="/favicon.svg" />
 </head>
 <body>
@@ -21,10 +21,10 @@
             <circle cx="40" cy="40" r="4" fill="currentColor"/>
           </svg>
         </div>
-        <h1>Angle Meter</h1>
-        <p class="start-subtitle">Measure surface inclination using your phone's motion sensors</p>
-        <button id="start-btn" class="btn-primary">Enable Sensors</button>
-        <p class="start-hint">Your phone will ask for motion sensor permission</p>
+        <h1>Neigungsmesser</h1>
+        <p class="start-subtitle">Messe die Neigung einer Oberfläche mit den Bewegungssensoren deines Telefons</p>
+        <button id="start-btn" class="btn-primary">Sensoren aktivieren</button>
+        <p class="start-hint">Dein Telefon wird um Zugriff auf die Sensoren fragen</p>
       </div>
     </div>
 
@@ -36,17 +36,17 @@
             <line x1="28" y1="28" x2="52" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
           </svg>
         </div>
-        <h1 id="unsupported-title">Not Supported</h1>
-        <p class="start-subtitle" id="unsupported-msg">Your device or browser does not support motion sensors.</p>
-        <p class="start-hint" id="unsupported-hint">Please try on a mobile device with iOS Safari or Android Chrome.</p>
-        <button id="unsupported-retry" class="btn-primary" style="margin-top: 24px;">Try Again</button>
+        <h1 id="unsupported-title">Nicht unterstützt</h1>
+        <p class="start-subtitle" id="unsupported-msg">Dein Gerät oder Browser unterstützt keine Bewegungssensoren.</p>
+        <p class="start-hint" id="unsupported-hint">Bitte verwende ein Mobilgerät mit iOS Safari, Android Chrome oder Edge.</p>
+        <button id="unsupported-retry" class="btn-primary" style="margin-top: 24px;">Erneut versuchen</button>
       </div>
     </div>
 
     <div id="meter-screen" class="hidden">
       <div class="meter-header">
-        <span class="meter-title">Angle Meter</span>
-        <button id="settings-btn" class="icon-btn" aria-label="Settings">
+        <span class="meter-title">Neigungsmesser</span>
+        <button id="settings-btn" class="icon-btn" aria-label="Einstellungen">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
             <circle cx="12" cy="12" r="3"/>
@@ -59,13 +59,13 @@
 
         <div class="angle-display">
           <div class="angle-value" id="angle-value">0.0</div>
-          <div class="angle-unit">degrees</div>
-          <div class="angle-label" id="angle-label">Level</div>
+          <div class="angle-unit">Grad</div>
+          <div class="angle-label" id="angle-label">Waagerecht</div>
         </div>
 
         <div class="axis-readout">
           <div class="axis-item">
-            <span class="axis-label">Pitch</span>
+            <span class="axis-label">Nick</span>
             <span class="axis-value" id="pitch-value">0.0&deg;</span>
           </div>
           <div class="axis-divider"></div>
@@ -81,13 +81,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 20V10M18 20V4M6 20v-4"/>
           </svg>
-          Calibrate
+          Eichung
         </button>
         <button id="reset-btn" class="btn-secondary btn-outline">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M3 12a9 9 0 1 0 9-9M3 3v6h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
-          Reset
+          Beenden
         </button>
       </div>
 
@@ -100,11 +100,11 @@
               <circle cx="24" cy="24" r="3" fill="currentColor"/>
             </svg>
           </div>
-          <h2>Set Reference Level</h2>
-          <p>Place your phone flat on the surface, then tap "Set as Level" to define it as your zero reference.</p>
+          <h2>Bezugsebene setzen</h2>
+          <p>Lege dein Telefon flach auf die Oberfläche und tippe auf „Als Waagerecht setzen", um diese als Nullbezug festzulegen.</p>
           <div class="calibrate-actions">
-            <button id="calibrate-confirm" class="btn-primary">Set as Level</button>
-            <button id="calibrate-cancel" class="btn-secondary btn-outline">Cancel</button>
+            <button id="calibrate-confirm" class="btn-primary">Als Waagerecht setzen</button>
+            <button id="calibrate-cancel" class="btn-secondary btn-outline">Abbrechen</button>
           </div>
         </div>
       </div>
@@ -112,8 +112,8 @@
       <div id="settings-overlay" class="hidden">
         <div class="settings-card">
           <div class="settings-header">
-            <h2>Settings</h2>
-            <button id="settings-close" class="icon-btn" aria-label="Close">
+            <h2>Einstellungen</h2>
+            <button id="settings-close" class="icon-btn" aria-label="Schließen">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
@@ -121,23 +121,23 @@
           </div>
           <div class="settings-body">
             <label class="setting-row">
-              <span>Smoothing</span>
+              <span>Glättung</span>
               <input type="range" id="smoothing-range" min="0" max="95" value="35" />
               <span class="setting-value" id="smoothing-value">35%</span>
             </label>
             <label class="setting-row">
-              <span>Show decimals</span>
+              <span>Dezimalstellen</span>
               <input type="checkbox" id="decimals-toggle" checked />
             </label>
             <div class="setting-row">
-              <span>Calibration offset</span>
-              <span class="setting-value" id="calibration-status">None</span>
+              <span>Eichungsoffset</span>
+              <span class="setting-value" id="calibration-status">Keine</span>
             </div>
             <button id="install-btn" class="btn-secondary btn-outline" style="display:none;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <path d="M12 15V3M12 15l-4-4M12 15l4-4M4 20h16"/>
               </svg>
-              Install App
+              App installieren
             </button>
           </div>
         </div>
