@@ -81,15 +81,9 @@ function onSensorData({ beta, gamma }) {
 }
 
 function startMeter() {
-  sensor.start(onSensorData);
   showScreen("meter-screen");
-
-  if (!rafId) {
-    const loop = () => {
-      rafId = requestAnimationFrame(loop);
-    };
-    rafId = requestAnimationFrame(loop);
-  }
+  ui.resize();
+  sensor.start(onSensorData);
 }
 
 function init() {
