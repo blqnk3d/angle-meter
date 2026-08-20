@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>Angle Meter</title>
+  <link rel="icon" href="/angle-meter/favicon.svg" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <script type="module" crossorigin src="/angle-meter/assets/index-HpI4amaf.js"></script>
+  <link rel="stylesheet" crossorigin href="/angle-meter/assets/index-C6vnRvEq.css">
+<link rel="manifest" href="/angle-meter/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/angle-meter/registerSW.js"></script></head>
+<body>
+  <div id="app">
+    <div id="start-screen">
+      <div class="start-content">
+        <div class="start-icon">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="64" height="64" rx="12" stroke="currentColor" stroke-width="3"/>
+            <line x1="40" y1="20" x2="40" y2="60" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+            <line x1="20" y1="40" x2="60" y2="40" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+            <circle cx="40" cy="40" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <h1>Angle Meter</h1>
+        <p class="start-subtitle">Measure surface inclination using your phone's motion sensors</p>
+        <button id="start-btn" class="btn-primary">Enable Sensors</button>
+        <p class="start-hint">Your phone will ask for motion sensor permission</p>
+      </div>
+    </div>
+
+    <div id="unsupported-screen" class="hidden">
+      <div class="start-content">
+        <div class="start-icon">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="30" stroke="currentColor" stroke-width="3"/>
+            <line x1="28" y1="28" x2="52" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1>Not Supported</h1>
+        <p class="start-subtitle">Your device or browser does not support motion sensors.</p>
+        <p class="start-hint">Please try on a mobile device with iOS Safari or Android Chrome.</p>
+      </div>
+    </div>
+
+    <div id="meter-screen" class="hidden">
+      <div class="meter-header">
+        <span class="meter-title">Angle Meter</span>
+        <button id="settings-btn" class="icon-btn" aria-label="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="meter-body">
+        <canvas id="inclinometer" width="300" height="300"></canvas>
+
+        <div class="angle-display">
+          <div class="angle-value" id="angle-value">0.0</div>
+          <div class="angle-unit">degrees</div>
+          <div class="angle-label" id="angle-label">Level</div>
+        </div>
+
+        <div class="axis-readout">
+          <div class="axis-item">
+            <span class="axis-label">Pitch</span>
+            <span class="axis-value" id="pitch-value">0.0&deg;</span>
+          </div>
+          <div class="axis-divider"></div>
+          <div class="axis-item">
+            <span class="axis-label">Roll</span>
+            <span class="axis-value" id="roll-value">0.0&deg;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="meter-footer">
+        <button id="calibrate-btn" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 20V10M18 20V4M6 20v-4"/>
+          </svg>
+          Calibrate
+        </button>
+        <button id="reset-btn" class="btn-secondary btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 12a9 9 0 1 0 9-9M3 3v6h6"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div id="calibrate-overlay" class="hidden">
+        <div class="calibrate-card">
+          <div class="calibrate-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="8" y="20" width="32" height="8" rx="2" stroke-dasharray="4 2"/>
+              <line x1="24" y1="8" x2="24" y2="40" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <circle cx="24" cy="24" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <h2>Calibrate</h2>
+          <p>Place your phone flat on the surface you want to measure as the reference level, then tap calibrate.</p>
+          <div class="calibrate-actions">
+            <button id="calibrate-confirm" class="btn-primary">Set as Level</button>
+            <button id="calibrate-cancel" class="btn-secondary btn-outline">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="settings-overlay" class="hidden">
+        <div class="settings-card">
+          <div class="settings-header">
+            <h2>Settings</h2>
+            <button id="settings-close" class="icon-btn" aria-label="Close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <div class="settings-body">
+            <label class="setting-row">
+              <span>Smoothing</span>
+              <input type="range" id="smoothing-range" min="0" max="95" value="85" />
+              <span class="setting-value" id="smoothing-value">85%</span>
+            </label>
+            <label class="setting-row">
+              <span>Show decimals</span>
+              <input type="checkbox" id="decimals-toggle" checked />
+            </label>
+            <div class="setting-row">
+              <span>Calibration offset</span>
+              <span class="setting-value" id="calibration-status">None</span>
+            </div>
+            <button id="install-btn" class="btn-secondary btn-outline" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 15V3M12 15l-4-4M12 15l4-4M4 20h16"/>
+              </svg>
+              Install App
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

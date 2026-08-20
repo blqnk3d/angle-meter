@@ -1,0 +1,1 @@
+{"name":"Angle Meter","short_name":"Angle Meter","description":"Measure surface inclination using your phone's motion sensors","start_url":"/angle-meter/","display":"standalone","background_color":"#0a0a0f","theme_color":"#0a0a0f","lang":"en","scope":"/angle-meter/","orientation":"any","icons":[{"src":"/favicon.svg","sizes":"any","type":"image/svg+xml"}]}
