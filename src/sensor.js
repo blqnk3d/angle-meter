@@ -8,12 +8,44 @@ function detectBrowser() {
   return "other";
 }
 
+function pickOrientationEvent() {
+  return new Promise((resolve) => {
+    let resolved = false;
+
+    const done = (name) => {
+      if (resolved) return;
+      resolved = true;
+      clearTimeout(timer);
+      resolve(name);
+    };
+
+    const timer = setTimeout(() => {
+      done(null);
+    }, 1500);
+
+    window.addEventListener("deviceorientationabsolute", function test(e) {
+      if (e.beta !== null || e.gamma !== null) {
+        window.removeEventListener("deviceorientationabsolute", test);
+        done("deviceorientationabsolute");
+      }
+    });
+
+    window.addEventListener("deviceorientation", function test(e) {
+      if (e.beta !== null || e.gamma !== null) {
+        window.removeEventListener("deviceorientation", test);
+        done("deviceorientation");
+      }
+    });
+  });
+}
+
 export class SensorManager {
   constructor() {
     this.supported = false;
     this.listening = false;
     this._callback = null;
     this._handler = null;
+    this._eventName = null;
     this.browser = detectBrowser();
   }
 
@@ -32,7 +64,9 @@ export class SensorManager {
       }
     }
 
-    this.supported = await this._testSupport();
+    this._eventName = await pickOrientationEvent();
+    this.supported = !!this._eventName;
+
     if (!this.supported) {
       return { ok: false, reason: this.browser === "brave" ? "brave-blocked" : "no-sensor" };
     }
@@ -41,43 +75,23 @@ export class SensorManager {
 
   start(callback) {
     if (this.listening) return;
+    if (!this._eventName) return;
 
     this._callback = callback;
     this._handler = (e) => {
-      if (e.beta === null && e.gamma === null) {
-        return;
-      }
+      if (e.beta === null && e.gamma === null) return;
       callback({ beta: e.beta, gamma: e.gamma, alpha: e.alpha });
     };
 
-    window.addEventListener("deviceorientation", this._handler);
+    window.addEventListener(this._eventName, this._handler);
     this.listening = true;
   }
 
   stop() {
     if (!this.listening) return;
-    window.removeEventListener("deviceorientation", this._handler);
+    window.removeEventListener(this._eventName, this._handler);
     this.listening = false;
     this._callback = null;
     this._handler = null;
-  }
-
-  _testSupport() {
-    return new Promise((resolve) => {
-      let received = false;
-      const handler = (e) => {
-        received = true;
-        window.removeEventListener("deviceorientation", handler);
-        resolve(e.beta !== null || e.gamma !== null);
-      };
-      window.addEventListener("deviceorientation", handler);
-
-      setTimeout(() => {
-        if (!received) {
-          window.removeEventListener("deviceorientation", handler);
-          resolve(false);
-        }
-      }, 1500);
-    });
   }
 }
