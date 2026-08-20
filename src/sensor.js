@@ -39,13 +39,18 @@ function pickOrientationEvent() {
   });
 }
 
+const DEG = 180 / Math.PI;
+
 export class SensorManager {
   constructor() {
     this.supported = false;
     this.listening = false;
     this._callback = null;
     this._handler = null;
+    this._motionHandler = null;
     this._eventName = null;
+    this._lastOrientation = { beta: 0, gamma: 0 };
+    this._lastAccel = { pitch: 0, roll: 0 };
     this.browser = detectBrowser();
   }
 
@@ -78,20 +83,47 @@ export class SensorManager {
     if (!this._eventName) return;
 
     this._callback = callback;
+
     this._handler = (e) => {
       if (e.beta === null && e.gamma === null) return;
-      callback({ beta: e.beta, gamma: e.gamma, alpha: e.alpha });
+      this._lastOrientation.beta = e.beta;
+      this._lastOrientation.gamma = e.gamma;
+      this._emit();
+    };
+
+    this._motionHandler = (e) => {
+      const ag = e.accelerationIncludingGravity;
+      if (!ag || ag.x === null) return;
+      const ax = ag.x || 0;
+      const ay = ag.y || 0;
+      const az = ag.z || 0;
+      this._lastAccel.pitch = Math.atan2(-ax, Math.sqrt(ay * ay + az * az)) * DEG;
+      this._lastAccel.roll = Math.atan2(ay, az) * DEG;
+      this._emit();
     };
 
     window.addEventListener(this._eventName, this._handler);
+    window.addEventListener("devicemotion", this._motionHandler);
     this.listening = true;
   }
 
   stop() {
     if (!this.listening) return;
     window.removeEventListener(this._eventName, this._handler);
+    window.removeEventListener("devicemotion", this._motionHandler);
     this.listening = false;
     this._callback = null;
     this._handler = null;
+    this._motionHandler = null;
+  }
+
+  _emit() {
+    if (!this._callback) return;
+    this._callback({
+      beta: this._lastOrientation.beta,
+      gamma: this._lastOrientation.gamma,
+      accelPitch: this._lastAccel.pitch,
+      accelRoll: this._lastAccel.roll,
+    });
   }
 }

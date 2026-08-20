@@ -210,6 +210,34 @@ html, body {
   margin-top: 8px;
 }
 
+.stability {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.stability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: background 0.3s;
+}
+
+.stability-dot.stable {
+  background: var(--level);
+}
+
+.stability-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
 .axis-readout {
   display: flex;
   align-items: center;

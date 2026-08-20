@@ -80,10 +80,22 @@ function updateReadouts({ pitch, roll, inclination }) {
   }
 }
 
-function onSensorData({ beta, gamma }) {
-  const angles = calculator.update(beta, gamma);
+function updateStability(isStable) {
+  const dot = $("stability-dot");
+  const text = $("stability-text");
+  if (dot) {
+    dot.classList.toggle("stable", isStable);
+  }
+  if (text) {
+    text.textContent = isStable ? "Stabil" : "Stabilisiert...";
+  }
+}
+
+function onSensorData({ beta, gamma, accelPitch, accelRoll }) {
+  const angles = calculator.update(beta, gamma, accelPitch, accelRoll);
   ui.draw(angles.pitch, angles.roll);
   updateReadouts(angles);
+  updateStability(angles.isStable);
 }
 
 async function startMeter() {
@@ -149,10 +161,9 @@ function init() {
   });
 
   $("calibrate-confirm").addEventListener("click", () => {
-    calculator.calibrate(
-      calculator.smoothBeta + calculator.offsetBeta,
-      calculator.smoothGamma + calculator.offsetGamma
-    );
+    const lastPitch = calculator.displayPitch + calculator.offsetPitch;
+    const lastRoll = calculator.displayRoll + calculator.offsetRoll;
+    calculator.calibrate(lastPitch, lastRoll);
     $("calibration-status").textContent = "Gesetzt";
     $("calibrate-overlay").classList.add("hidden");
   });
